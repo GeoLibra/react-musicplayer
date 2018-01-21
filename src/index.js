@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Header from './components/header';
+import Main from './components/main';
 import './css/reset.css';
 import './css/common.css';
 
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Header />, document.getElementById('root'));
+ReactDOM.render(<Main />, document.getElementById('root'));
 registerServiceWorker();
