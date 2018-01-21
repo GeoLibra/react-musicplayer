@@ -3,11 +3,14 @@ import $ from 'jquery';
 import 'jplayer';
 import Progress from './progress';
 import Header from './header';
+
 class Main extends Component{
     constructor(props){
         super(props);
         this.state={
-            progress:'-'
+            progress:'-',
+            duration:0,
+            barColor:'#2f9842'
         };
     }
     componentDidMount(){
@@ -25,20 +28,26 @@ class Main extends Component{
             }
         );
         $('#player').bind($.jPlayer.event.timeupdate,(e)=>{
+
             this.setState({
-                progress:e.jPlayer.status.currentPercentAbsolute
+                progress:e.jPlayer.status.currentPercentAbsolute,
+                duration:e.jPlayer.status.duration
             });
         });
     }
     componentWillUnmount(){
         $('#player').unbind($.jPlayer.event.timeupdate);
     }
+    progressChangeHandler(progress){
+
+        $('#player').jPlayer('play',this.state.duration*progress);
+    }
     render(){
         return (
             <div>
                 <Header/>
                 <div id="player"></div>
-                <Progress progress={this.state.progress}/>
+                <Progress progress={this.state.progress} onProgressChange={this.progressChangeHandler.bind(this)}/>
             </div>
         );
     }
