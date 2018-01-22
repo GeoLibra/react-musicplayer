@@ -6,10 +6,12 @@ import Header from './header';
 import Player from "../page/player";
 
 import {MUSIC_LIST} from '../data/musiclist';
+import MusicList from '../page/musiclist';
 class Main extends Component{
     constructor(props){
         super(props);
         this.state={
+            musicList:MUSIC_LIST,
             currentMusicItem:MUSIC_LIST[0]
         };
     }
@@ -33,7 +35,10 @@ class Main extends Component{
             <div>
                 <Header/>
                 <div id="player"></div>
-                <Player currentMusicItem={this.state.currentMusicItem}/>
+                {/*<Player currentMusicItem={this.state.currentMusicItem}/>*/}
+                <MusicList currentMusicItem={this.state.currentMusicItem}
+                           musicList={this.state.musicList}
+                />
             </div>
         );
     }
