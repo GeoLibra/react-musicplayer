@@ -7,24 +7,47 @@ class Player extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            progress:'-',
-            duration:0
+            progress:0,
+            duration:0,
+            barColor:'#2f9842',
+            volume:0,
+            isPlay:true
         };
     }
     componentDidMount(){
-        $('#player').bind($.jPlayer.event.timeupdate,(e)=>{
 
+        $('#player').bind($.jPlayer.event.timeupdate,(e)=>{
             this.setState({
+                volume:e.jPlayer.options.volume*100,
                 progress:e.jPlayer.status.currentPercentAbsolute,
                 duration:e.jPlayer.status.duration
             });
         });
+
+
     }
     componentWillUnmount(){
         $('#player').unbind($.jPlayer.event.timeupdate);
     }
     progressChangeHandler(progress){
-        $('#player').jPlayer('play',this.state.duration*progress);
+
+        $('#player').jPlayer(this.state.isPlay?'play':'pause',this.state.duration * progress);
+    }
+    changeVolumeHandler(progress){
+        this.setState({
+            volume: progress * 100,
+        });
+        $("#player").jPlayer('volume',progress);
+    }
+    play(){
+        if(this.state.isPlay){
+            $("#player").jPlayer('pause');
+        }else {
+            $("#player").jPlayer('play');
+        }
+        this.setState({
+            isPlay:!this.state.isPlay
+        });
     }
     render(){
         return (
@@ -38,16 +61,18 @@ class Player extends React.Component{
                         <div className="left-time -col-auto">-2:00</div>
                         <div className="volume-container">
                             <i className="icon-volume rt" style={{top:5,left:-5}}></i>
-                            <div className="volume-wrapper">音量控制部分</div>
+                            <div className="volume-wrapper">
+                                <Progress progress={this.state.volume} onProgressChange={this.changeVolumeHandler.bind(this)} barColor="#aaa"/>
+                            </div>
                         </div>
                     </div>
                     <div style={{height:10,lineHeight:'10px'}}>
-                        播放进度
+                        <Progress progress={this.state.progress} onProgressChange={this.progressChangeHandler.bind(this)} barColor={this.state.barColor}/>
                     </div>
                     <div className="mt35 row">
                         <div>
                             <i className="icon prev"></i>
-                            <i className="icon ml20 play"></i>
+                            <i className={`icon ml20 ${this.state.isPlay?'pause':'play'}`} onClick={this.play.bind(this)}></i>
                             <i className="icon next ml20"></i>
                         </div>
                         <div className="-col-auto">

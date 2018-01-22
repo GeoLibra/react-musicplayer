@@ -8,6 +8,7 @@ class Progress extends Component{
         this.props.onProgressChange&&this.props.onProgressChange(progress);
     }
     render(){
+
         let barStyle = {
             width: `${this.props.progress}%`,
             background:this.props.barColor
