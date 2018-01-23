@@ -4,9 +4,10 @@ import 'jplayer';
 
 import Header from './header';
 import Player from "../page/player";
-
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {MUSIC_LIST} from '../data/musiclist';
 import MusicList from '../page/musiclist';
+
 class Main extends Component{
     constructor(props){
         super(props);
@@ -31,17 +32,28 @@ class Main extends Component{
         );
     }
     render(){
+        const Home=()=>(
+            <Player
+                currentMusicItem={this.state.currentMusicItem}
+            />
+        );
+        const List=()=>(
+            <MusicList
+                currentMusicItem={this.state.currentMusicItem}
+                musicList={this.state.musicList}
+            />
+        );
         return (
-            <div>
-                <Header/>
-                <div id="player"></div>
-                {/*<Player currentMusicItem={this.state.currentMusicItem}/>*/}
-                <MusicList currentMusicItem={this.state.currentMusicItem}
-                           musicList={this.state.musicList}
-                />
-            </div>
+            <Router>
+                <div>
+                    <Header/>
+                    <div id="player"></div>
+                    {/*<Player currentMusicItem={this.state.currentMusicItem}/>*/}
+                    <Route exact path="/" component={Home}/>
+                    <Route path="/list" component={List}/>
+                </div>
+            </Router>
         );
     }
-
 }
 export default Main;

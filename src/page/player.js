@@ -3,6 +3,7 @@ import $ from 'jquery';
 import 'jplayer';
 import Progress from '../components/progress';
 import '../css/player.less';
+import {Link} from 'react-router-dom';
 class Player extends React.Component{
     constructor(props){
         super(props);
@@ -52,7 +53,7 @@ class Player extends React.Component{
     render(){
         return (
         <div className="player-page">
-            <h1 className="caption">音乐收藏夹 &gt;</h1>
+            <h1 className="caption"><Link to="/list">音乐收藏夹 &gt;</Link></h1>
             <div className="mt20 row">
                 <div className="controll-wrapper">
                     <h2 className="music-title">{this.props.currentMusicItem.title}</h2>
@@ -66,7 +67,7 @@ class Player extends React.Component{
                             </div>
                         </div>
                     </div>
-                    <div style={{height:10,lineHeight:'10px'}}>
+                    <div style={{height:10,lineHeight:'10px',marginTop:'10px'}}>
                         <Progress progress={this.state.progress} onProgressChange={this.progressChangeHandler.bind(this)} barColor={this.state.barColor}/>
                     </div>
                     <div className="mt35 row">
