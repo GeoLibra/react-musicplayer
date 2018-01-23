@@ -8,7 +8,7 @@ A music player by React
 ####  1、将项目克隆到本地，cd 到 react-musicplayer
 ```javascript
 git clone git@github.com:LuvJia/react-musicplayer.git
-cd eact-musicplayer
+cd react-musicplayer
 ```
 #### 2、安装依赖
 ```javascript
