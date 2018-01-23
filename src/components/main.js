@@ -4,11 +4,12 @@ import 'jplayer';
 
 import Header from './header';
 import Player from "../page/player";
-import {HashRouter as Router, Route} from 'react-router-dom';
+import {Router, Route} from 'react-router-dom';
 import {MUSIC_LIST} from '../data/musiclist';
 import MusicList from '../page/musiclist';
 import Pubsub from 'pubsub-js';
-
+import createHistory from 'history/createHashHistory'
+const history = createHistory()
 class Main extends Component{
     constructor(props){
         super(props);
@@ -85,7 +86,7 @@ class Main extends Component{
             />
         );
         return (
-            <Router>
+            <Router history={history}>
                 <div>
                     <Header/>
 
