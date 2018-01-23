@@ -50,3 +50,5 @@ git subtree push --prefix=build origin gh-pages
 ```
 ## 项目预览
 地址：https://luvjia.github.io/react-musicplayer/
+
+## create-react-app项目添加less配置
