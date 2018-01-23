@@ -12,7 +12,7 @@ class Main extends Component{
         super(props);
         this.state={
             musicList:MUSIC_LIST,
-            currentMusicItem:MUSIC_LIST[0]
+            currentMusicItem:MUSIC_LIST[2]
         };
     }
     componentDidMount(){
