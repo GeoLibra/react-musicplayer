@@ -4,10 +4,11 @@ import 'jplayer';
 
 import Header from './header';
 import Player from "../page/player";
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {HashRouter as Router, Route} from 'react-router-dom';
 import {MUSIC_LIST} from '../data/musiclist';
 import MusicList from '../page/musiclist';
 import Pubsub from 'pubsub-js';
+
 class Main extends Component{
     constructor(props){
         super(props);
@@ -87,10 +88,14 @@ class Main extends Component{
             <Router>
                 <div>
                     <Header/>
-                    <div id="player"></div>
+
+                        <div id="player"></div>
+                        <Route exact path="/" component={Home}/>
+                        <Route path="/list" component={List}/>
+
+
                     {/*<Player currentMusicItem={this.state.currentMusicItem}/>*/}
-                    <Route exact path="/" component={Home}/>
-                    <Route path="/list" component={List}/>
+
                 </div>
             </Router>
         );
