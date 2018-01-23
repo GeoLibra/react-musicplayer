@@ -28,7 +28,7 @@ GitHub Page 需要使用相对路径，修改：
 在yarn run build后该项目会生成一个build文件，但是点击其中的index.html文件打开后浏览器是空白页面。
 解决办法:
 ```
-去掉.gitignore文件中的/build,另外在在package.json配置文件中加一句："homepage": "./",然后进行打包(yarn run build)
+去掉.gitignore文件中的/build,或者使用git add -f build。因为配置文件中对这个文件夹的上传进行了忽略。另外在在package.json配置文件中加一句："homepage": "./",然后进行打包(yarn run build)
 ```
 
 打包后播放页面是空白的,是因为使用react-router-dom里的BrowserRouter as Router,改用HashRouter就好了
