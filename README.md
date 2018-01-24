@@ -6,18 +6,18 @@ A music player by React
 ### 如何运行
 
 ####  1、将项目克隆到本地，cd 到 react-musicplayer
-```javascript
+```bash
 git clone git@github.com:LuvJia/react-musicplayer.git
 cd react-musicplayer
 ```
 #### 2、安装依赖
-```javascript
+```bash
 npm install
 或
 yarn install
 ```
 #### 3、执行
-```javascript
+```bash
 npm start
 // npm run build(打包)
 ```
@@ -52,3 +52,36 @@ git subtree push --prefix=build origin gh-pages
 地址：https://luvjia.github.io/react-musicplayer/
 
 ## create-react-app项目添加less配置
+###暴露配置文件
+`create-react-app`生成的项目，看不到webpack相关的配置文件，需要先暴露出来，使用如下命令即可:  
+
+``bash
+npm run eject
+``  
+
+**安装`less-loader`和`less`**  
+
+``bash
+yarn add less-loader less --save
+``  
+
+**修改`webpack`配置**  
+
+修改 `webpack.config.dev.js` 和 `webpack.config-prod.js` 配置文件  
+  
+*改动1*
+
++ `/\.css$/` 改为 `/\.(css|less)$/`  
+
+*改动2*  
++ `test: /\.css$/` 改为 `/\.(css|less)$/`  
+
++ `test: /\.css$/` 的 `use` 数组配置增加 `less-loader`  
+
+修改后如下  
+``javascript
+  {  
+  loader:require.resolve('less-loader')  
+  }
+``
+
