@@ -2,7 +2,7 @@
 A music player by React
 ![首页](/player.png)
 ## 说明
-技术栈采用react(16.x)+react-router-dom(4.x)+ES6+create-react-app
+技术栈采用react(16.x)+react-router-dom(4.x)+ES6+HTML5+create-react-app
 ### 如何运行
 
 ####  1、将项目克隆到本地，cd 到 react-musicplayer
