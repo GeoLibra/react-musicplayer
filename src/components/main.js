@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import $ from 'jquery';
-import 'jplayer';
+// import 'jplayer';
 
 import Header from './header';
 import Player from "../page/player";
@@ -8,8 +8,8 @@ import {Router, Route} from 'react-router-dom';
 import {MUSIC_LIST} from '../data/musiclist';
 import MusicList from '../page/musiclist';
 import Pubsub from 'pubsub-js';
-import createHistory from 'history/createHashHistory'
-const history = createHistory()
+import createHistory from 'history/createHashHistory';
+const history = createHistory();
 class Main extends Component{
     constructor(props){
         super(props);
@@ -19,9 +19,9 @@ class Main extends Component{
         };
     }
     playMusic(musicItem){
-        $('#player').jPlayer('setMedia',{
-            mp3:musicItem.file
-        }).jPlayer('play');
+        let player=$('#player')[0];
+        player.src=musicItem.file;
+        player.play();
         this.setState({
             currentMusicItem:musicItem
         });
@@ -41,14 +41,11 @@ class Main extends Component{
         return this.state.musicList.indexOf(musicItem);
     }
     componentDidMount(){
-        $('#player').jPlayer(
-            {
-                supplied:'mp3',
-                wmode:'window'
-            }
-        );
+
         this.playMusic(this.state.currentMusicItem);
-        $('#player').bind($.jPlayer.event.ended,(e)=>{
+        //播放下一曲
+        $('#player').bind('ended',(e)=>{
+
             this.playNext();
         });
         Pubsub.subscribe('DELETE_MUSIC',(msg,musicItem)=>{
@@ -71,7 +68,7 @@ class Main extends Component{
         Pubsub.unsubscribe('PLAY_MUSIC');
         Pubsub.unsubscribe('PLAY_NEXT');
         Pubsub.unsubscribe('PLAY_PREV');
-        $('play').unbind($.jPlayer.event.ended);
+        $('play').unbind('ended');
     }
     render(){
         const Home=()=>(
@@ -89,14 +86,10 @@ class Main extends Component{
             <Router history={history}>
                 <div>
                     <Header/>
-
-                        <div id="player"></div>
+                        <audio id="player" >
+                        </audio>
                         <Route exact path="/" component={Home}/>
                         <Route path="/list" component={List}/>
-
-
-                    {/*<Player currentMusicItem={this.state.currentMusicItem}/>*/}
-
                 </div>
             </Router>
         );

@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
-import 'jplayer';
+// import 'jplayer';
 import Progress from '../components/progress';
 import '../css/player.less';
 import {Link} from 'react-router-dom';
@@ -18,32 +18,41 @@ class Player extends React.Component{
         };
     }
     componentDidMount(){
-        $('#player').bind($.jPlayer.event.timeupdate,(e)=>{
+        $('#player').bind('timeupdate',(e)=>{
+            /**
+             * duration 返回音频的长度(秒)
+             * currentTime 设置或返回音频中的当前播放位置(秒)
+             * volume	设置或返回音频的音量
+             */
+            let percent = Math.floor(100*(e.target.currentTime / e.target.duration));
             this.setState({
-                volume:e.jPlayer.options.volume*100,
-                progress:e.jPlayer.status.currentPercentAbsolute,
-                duration:e.jPlayer.status.duration,
-                leftTime:this.formattime(this.state.duration*(1-e.jPlayer.status.currentPercentAbsolute/100))
+                volume:e.target.volume*100,
+                progress:percent,
+                duration:e.target.duration,
+                leftTime:this.formattime(this.state.duration*(1-e.target.currentTime / e.target.duration))
             });
         });
     }
     componentWillUnmount(){
-        $('#player').unbind($.jPlayer.event.timeupdate);
+        $('#player').unbind('timeupdate');
     }
     progressChangeHandler(progress){
-        $('#player').jPlayer(this.state.isPlay?'play':'pause',this.state.duration * progress);
+        let player=$('#player')[0];
+        player.currentTime=this.state.duration * progress;
     }
     changeVolumeHandler(progress){
+
         this.setState({
             volume: progress * 100,
         });
-        $("#player").jPlayer('volume',progress);
+        $("#player")[0].volume=progress;
     }
     play(){
+        let player=$('#player')[0];
         if(this.state.isPlay){
-            $("#player").jPlayer('pause');
+            player.pause();
         }else {
-            $("#player").jPlayer('play');
+            player.play();
         }
         this.setState({
             isPlay:!this.state.isPlay
@@ -56,11 +65,13 @@ class Player extends React.Component{
         Pubsub.publish('PLAY_PREV');
     }
     formattime(time){
-        time=Math.floor(time);
-        let minutes=Math.floor(time/60);
-        let seconds=Math.floor(time%60);
-        seconds=seconds<10?`0${seconds}`:seconds;
-        return `${minutes}:${seconds}`;
+        if(time){
+            time=Math.floor(time);
+            let minutes=Math.floor(time/60);
+            let seconds=Math.floor(time%60);
+            seconds=seconds<10?`0${seconds}`:seconds;
+            return `-${minutes}:${seconds}`;
+        }
     }
     render(){
         return (
@@ -71,7 +82,7 @@ class Player extends React.Component{
                     <h2 className="music-title">{this.props.currentMusicItem.title}</h2>
                     <h3 className="music-artist mt10">{this.props.currentMusicItem.artist}</h3>
                     <div className="row mt20">
-                        <div className="left-time -col-auto">-{this.state.leftTime}</div>
+                        <div className="left-time -col-auto">{this.state.leftTime}</div>
                         <div className="volume-container">
                             <i className="icon-volume rt" style={{top:5,left:-5}}></i>
                             <div className="volume-wrapper">
