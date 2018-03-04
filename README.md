@@ -55,13 +55,13 @@ git subtree push --prefix=build origin gh-pages
 ###暴露配置文件
 `create-react-app`生成的项目，看不到webpack相关的配置文件，需要先暴露出来，使用如下命令即可:  
 
-``bash
+```bash
 npm run eject
 ``  
 
 **安装`less-loader`和`less`**  
 
-``bash
+```bash
 yarn add less-loader less --save
 ``  
 
