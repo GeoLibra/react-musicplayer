@@ -41,7 +41,6 @@ class Player extends React.Component{
         player.currentTime=this.state.duration * progress;
     }
     changeVolumeHandler(progress){
-
         this.setState({
             volume: progress * 100,
         });
@@ -49,10 +48,15 @@ class Player extends React.Component{
     }
     play(){
         let player=$('#player')[0];
+        // 获取转圈的封面图片
+        let imgAnimation = this.refs.imgAnimation;
+
         if(this.state.isPlay){
             player.pause();
+            imgAnimation.style = 'animation-play-state: paused';
         }else {
             player.play();
+            imgAnimation.style = 'animation-play-state: running';
         }
         this.setState({
             isPlay:!this.state.isPlay
@@ -105,7 +109,7 @@ class Player extends React.Component{
                     </div>
                 </div>
                 <div className="-col-auto cover">
-                    <img src={this.props.currentMusicItem.cover} alt={this.props.currentMusicItem.title}/>
+                    <img ref="imgAnimation" src={this.props.currentMusicItem.cover} alt={this.props.currentMusicItem.title}/>
                 </div>
             </div>
         </div>

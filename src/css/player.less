@@ -16,6 +16,8 @@
       width: 180px;
       height: 180px;
       border-radius: 50%;
+      //图片旋转动画
+      animation:roate 20s infinite linear;
     }
   }
   .volume-container {
@@ -60,5 +62,15 @@
   .volume-wrapper {
     width: 60px;
     display: inline-block;
+  }
+}
+
+//设置动画
+@keyframes roate {
+  0% {
+    transform: rotateZ(0)
+  }
+  100% {
+    transform: rotateZ(360deg)
   }
 }
