@@ -50,7 +50,6 @@ class Player extends React.Component{
         let player=$('#player')[0];
         // 获取转圈的封面图片
         let imgAnimation = this.refs.imgAnimation;
-
         if(this.state.isPlay){
             player.pause();
             imgAnimation.style = 'animation-play-state: paused';
