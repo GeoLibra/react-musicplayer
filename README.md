@@ -2,7 +2,7 @@
 A music player by React
 ![首页](/player.png)
 ## 说明
-技术栈采用react(16.x)+react-router-dom(4.x)+ES6+HTML5+create-react-app。音乐播放采用HTML5的audio标签
+技术栈采用react(16.x)+react-router-dom(4.x)+ES6+create-react-app
 ### 如何运行
 
 ####  1、将项目克隆到本地，cd 到 react-musicplayer
@@ -55,13 +55,13 @@ git subtree push --prefix=build origin gh-pages
 ###暴露配置文件
 `create-react-app`生成的项目，看不到webpack相关的配置文件，需要先暴露出来，使用如下命令即可:  
 
-```bash
+``bash
 npm run eject
-
+``  
 
 **安装`less-loader`和`less`**  
 
-```bash
+``bash
 yarn add less-loader less --save
 ``  
 
