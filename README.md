@@ -57,7 +57,7 @@ git subtree push --prefix=build origin gh-pages
 
 ```bash
 npm run eject
-``  
+
 
 **安装`less-loader`和`less`**  
 
